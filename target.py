@@ -2,10 +2,11 @@
   
 #_____________________________________________________________________________
 #
-# A very simple target server for SOCKS5 (RFC 1928) proxy server for switching the gender in arbitrary natural text
-# Only plaintext analysis. No encryption, etc. ... => plaintext
+# A very simple target server for SOCKS5 (RFC 1928) proxy server
+# Only plaintext analysis. No encryption, etc. ...
 #
-# Author:   Samdney  <contact@carolin-zoebelein.de>   D4A7 35E8 D47F 801F 2CF6 2BA7 927A FD3C DE47 E13B 
+# Author:   Samdney  <contact@carolin-zoebelein.de>
+#			D4A7 35E8 D47F 801F 2CF6 2BA7 927A FD3C DE47 E13B 
 # License:  See LICENSE for licensing information
 #_____________________________________________________________________________
 

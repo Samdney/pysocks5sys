@@ -4,7 +4,8 @@
 #
 # socks5 protocol
 #
-# Author:   Samdney  <contact@carolin-zoebelein.de>   D4A7 35E8 D47F 801F 2CF6 2BA7 927A FD3C DE47 E13B 
+# Author:   Samdney  <contact@carolin-zoebelein.de>
+# D4A7 35E8 D47F 801F 2CF6 2BA7 927A FD3C DE47 E13B 
 # License:  See LICENSE for licensing information
 #_____________________________________________________________________________
 
