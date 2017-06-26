@@ -128,6 +128,11 @@ class gender_filter():
 		# Old: He, and SHE likes me so much. HELP him! His dog likes tea and eats with him cake. That's hers.
 		# New: She, and HE likes me so much. HELP his! Her dog likes tea and eats with his cake. That's hers.
 
+        # TODO  If we have very long messages, we should add 'if cases' within the
+        # loop, to not always run all 'find and replace' functions for each
+        # pronoun pair. E.g. 'he' or 'she' aren't at the end of a senctence, if
+        # the sentence follows english grammar rules, or? -> Saving of
+        # computation time
 		for male in pronoun_pairs:
 			pn1 = male
 			pn2 = pronoun_pairs[male]
