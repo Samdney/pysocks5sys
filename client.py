@@ -86,7 +86,16 @@ def main():
 		# TODO: Depending of atyp, generating of valid (DST_ADDR,DST_PORT)
 		# format
 		DST_ADDR			= socket.inet_aton(target_host)
-		DST_PORT			= str(target_port).encode()				# TODO: Bug for target_port: byte <-> string <-> int switching!!!!
+				
+		str_target_port = str(target_port)
+		lstr_target_port = len(str_target_port)
+				
+		DST_PORT = b''
+		for val in range(0,len(str_target_port)):
+			tmp = str_target_port[val]
+			erg = bytes([int(tmp)])
+			DST_PORT = DST_PORT + erg
+			
 		Socks5_Client.connect_send(VER,CMD,RSV,ATYP,DST_ADDR,DST_PORT)
 				
 		# Step 4: Receive request details from proxy

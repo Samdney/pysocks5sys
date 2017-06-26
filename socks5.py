@@ -245,7 +245,7 @@ class Client():
 			print("[*] Unable To Initialize Socket")
 			sys.exit(2)	# Error number?		
 
-	def hallo_send(self, VER, NMETHODS,METHODS):
+	def hallo_send(self,VER,NMETHODS,METHODS):
 		msg_s1				= VER + NMETHODS + METHODS
 		self.sockToProxy.sendall(msg_s1)
 		#print(msg_s1)
@@ -291,7 +291,7 @@ class Proxy():
 		self.sockToClient	= None
 		self.atyp 			= ""
 		self.target_host 	= ""
-		self.target_port	= 8888	# TODO: BUG, TEMPORARY HARD CODED PORT FOR TARGET
+		self.target_port	= None
 		self.cmd			= None
 		self.connect_data	= None
 
@@ -333,7 +333,7 @@ class Proxy():
 		
 		print("[*] Step 1: Receive Valid Greeting From Client ... Done")
 
-	def hallo_send(self, VER, METHOD,conn):
+	def hallo_send(self,VER,METHOD,conn):
 		msg_s2				= VER + METHOD
 		conn.sendall(msg_s2)
 		print("[*] Step 2: Send Answer To Client ... Done")
@@ -358,15 +358,16 @@ class Proxy():
 			i = 8
 			tmp_host = data_s3[4:i]
 			target_host_as = socket.inet_ntoa(tmp_host)
-			#print(target_host_as)
 			self.target_host = target_host_as
 			
-			# ############################
-			# TODO: BUG
-			# TEMPORARY HARD CODED PORT FOR TARGET
-			self.target_port = 8888
-			# ############################
-		
+			_target_port = ""
+			tmp_port = data_s3[i:]
+			for val in range(0,len(tmp_port)):
+				tmp = tmp_port[val]
+				_target_port = _target_port + str(tmp)
+			
+			self.target_port = int(_target_port)
+
 		#if data_s3[3] == Socks5_Protocol.ATYP_DOMAINNAME[0]:
     		# ATYP_DOMAINNAME
 			# TODO
