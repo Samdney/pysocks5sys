@@ -24,8 +24,8 @@
 
 	[Notes-Diagrams:
 	- Decimal numbers == length of the correspondending field in octets
-	- 'Variable' == corresponding field has a variable length defined either by an
-   		associated (one or two octet) length field, or by a data type field]
+	- 'Variable' == corresponding field has a variable length defined either by
+		an associated (one or two octet) length field, or by a data type field]
 
 	1. Client to Server:
 	 			   +----+----------+----------+
@@ -93,12 +93,12 @@
 
 5.  Addressing
 =>	In an address field (DST.ADDR, BND.ADDR), the ATYP field specifies
-   the type of address contained within the field:
+	the type of address contained within the field:
 
 		=> 0x01	= version-4 IP address, with a length of 4 octets
-		=> 0x03	= a fully-qualified domain name, first octet of the address field 
-			contains the number of octets of name that follow, there is no terminating 
-			NUL octet.
+		=> 0x03	= a fully-qualified domain name, first octet of the address 
+			field contains the number of octets of name that follow, there is no
+			terminating NUL octet.
 		=> 0x04	= version-6 IP address, with a length of 16 octets.
 
 6.  Replies
@@ -144,8 +144,8 @@
 	=> BND.ADDR containts: 
 		=> the associated IP address. 
 
-  => It is expected that the SOCKS server will use DST.ADDR and DST.PORT, and the
-   client-side source address and port in evaluating the CONNECT request.
+  => It is expected that the SOCKS server will use DST.ADDR and DST.PORT, and 
+	the client-side source address and port in evaluating the CONNECT request.
 
 => BIND
 	=> Used in protocols which require the client to accept connections from
@@ -166,9 +166,9 @@
 			=> The BND.PORT field contains the port number that the
    				SOCKS server assigned to listen for an incoming connection.
 			=>	The BND.ADDR field contains the associated IP address.  
-			=> The client will typically use these pieces of information to notify 
-				(via the primary or control connection) the application server of the 
-				rendezvous address.  
+			=>	The client will typically use these pieces of information to 
+				notify (via the primary or control connection) the application 
+				server of the rendezvous address.  
 		=> The second reply occurs only after the anticipated incoming
    			connection succeeds or fails.
    		=> In the second reply, the BND.PORT and BND.ADDR fields contain the
@@ -184,12 +184,13 @@
    	=> If the reply code (REP value of 0x00) indicates a success, and the
    		request was either a BIND or a CONNECT, 
 		=> Client may now start passing data.
-		=> If the selected authentication method supports encapsulation for the purposes 
-			of integrity, authentication and/or confidentiality
-			=> the data are encapsulated using the method-dependent encapsulation.
+		=> If the selected authentication method supports encapsulation for the 
+		purposes of integrity, authentication and/or confidentiality
+		=> the data are encapsulated using the method-dependent encapsulation.
 """
 # TODO: logging
-# TODO: Check steps of SOCKS5 connection implementation for details of protocol specification/see section: Addressing
+# TODO: Check steps of SOCKS5 connection implementation for details of protocol
+# specification/see section: Addressing
 
 import socket
 import string
@@ -290,7 +291,7 @@ class Proxy():
 		self.sockToClient	= None
 		self.atyp 			= ""
 		self.target_host 	= ""
-		self.target_port	= 8888		# TODO: BUG, TEMPORARY HARD CODED PORT FOR TARGET
+		self.target_port	= 8888	# TODO: BUG, TEMPORARY HARD CODED PORT FOR TARGET
 		self.cmd			= None
 		self.connect_data	= None
 
@@ -324,7 +325,8 @@ class Proxy():
 		
 		data_s1_method = data_s1[2:len(data_s1)]
 		# TODO: At the moment only one method supported, hence no problem
-		# If more methods are support, we need an loop over all methods and have to compare
+		# If more methods are support, we need an loop over all methods and have
+		# to compare
 		if data_s1_method.decode() == Socks5_Protocol.METHOD_NOACCEPT[0]:
 			print("[*] No Acceptable Method")
 			sys.exit(2)	# Error number?	

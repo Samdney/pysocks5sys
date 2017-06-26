@@ -16,7 +16,8 @@
 # TODO: connections run in troubles if data > buffer_size
 # TODO: buffer sizes
 # TODO: correction of sys.error number and handling
-# TODO: check steps of SOCKS5 connection implementation for details of protocol specification, see section: Addressing
+# TODO: check steps of SOCKS5 connection implementation for details of protocol
+# specification, see section: Addressing
 
 import socket
 import string
@@ -63,7 +64,8 @@ class ProxyToServer():
 		buf_client		= 1024
 		self.data_client 	= conn.recv(buf_client)
 
-	# TODO: This Should be parted in SendDataToTargetServer(...) and ReceiveDataFromTargetServer(...)
+	# TODO: This Should be parted in SendDataToTargetServer(...) and
+	# ReceiveDataFromTargetServer(...)
 	def CommunicationWithTargetServer(self,msg_for_target):
 		buffer_size = 1024
 		try:
@@ -109,16 +111,19 @@ def main():
 			#s = 0
 			
 			print("[*] *** Hallo ***")
-			# Step 1: Receive "Hallo" from Client - VER+NMETHODS+METHODS
+			# Step 1: Receive "Hallo" from Client
+			# VER+NMETHODS+METHODS
 			#s = 1
 			Socks5_Proxy.hallo_recv(conn)
 			
-			# Step 2: Send answer Hallo to Client - VER+METHOD
+			# Step 2: Send answer Hallo to Client
+			# VER+METHOD
 			#s = 2
 			Socks5_Proxy.hallo_send(VER,METHOD,conn)
 			
 			print("[*] *** Connecting ***")	
-			# Step 3: Receive request details from Client - VER+CMD+RSV+ATYP+DST.ADDR+DST.PORT
+			# Step 3: Receive request details from Client
+			# VER+CMD+RSV+ATYP+DST.ADDR+DST.PORT
 			#s = 3
 			Socks5_Proxy.connect_recv(conn)
 			
@@ -131,7 +136,8 @@ def main():
 				ProxyTargetConn = ProxyToServer()
 				ProxyTargetConn.ConnectToTargetServer(target_addr)
 				
-				# Step 4: Send reply back to client - VER+REP+RSV+ATYP+BND.ADDR+BND.PORT
+				# Step 4: Send reply back to client
+				# VER+REP+RSV+ATYP+BND.ADDR+BND.PORT
 				#s = 4
 				Socks5_Proxy.connect_reply(conn)
 				print("[*] Initializing Socket To Target Server... Done")
@@ -158,9 +164,13 @@ def main():
 					# ********************
 					# Choose Kind of Filter
 					print("[*] Proxyfilter")
-					filter_switch 			= 1			# 0: Filter of, 1: Filter on - simple_switch, 2: Filter on - lingu_switch (not implemented until now)
+
+					# 0: Filter of
+					# 1: Filter on - simple_switch,
+					# 2: Filter on - lingu_switch (not implemented until now)
+					filter_switch 			= 1
+
 					myfilter 				= gender_filter()
-					
 					myfilter.change_msg(filter_switch,rp_msg_from_target)
 					
 					New_rp_msg_from_target 	= myfilter.msg_new

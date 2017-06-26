@@ -15,9 +15,11 @@
 # TODO: bufferhandling is very bad! A lot of bugs! Values have NO fixed size!
 # TODO: connections run in troubles if data > buffer_size
 # TODO: buffer sizes
-# TODO: something wrong with error/except, etct... handling, wrong place for closing socket?
+# TODO: something wrong with error/except, etct... handling, wrong place for 
+# closing socket?
 # TODO: correction of sys.error number and handling
-# TODO: check steps of SOCKS5 connection implementation for details of protocol specification, see section: Addressing
+# TODO: check steps of SOCKS5 connection implementation for details of protocol
+# specification, see section: Addressing
 
 
 import socket
@@ -36,7 +38,7 @@ proxy_port	= 1080
 proxy_addr	= (proxy_host, proxy_port)
 
 target_host	= "127.0.0.1"
-target_port	= 8888								# TODO: CAUSED BY BUG, THIS IS TEMPORARY HARDCODED in socks5.py!!!!!
+target_port	= 8888				# TODO: CAUSED BY BUG, THIS IS TEMPORARY HARDCODED in socks5.py!!!!!
 target_addr	= (target_host,target_port)
 
 # SOCKS5 - Hallo
@@ -67,23 +69,28 @@ def main():
 		#s = 0
 		
 		print("[*] *** Hallo ***")	
-		# Step 1: Send "Hallo" - VER+NMETHODS+METHODS
+		# Step 1: Send "Hallo"
+		# VER+NMETHODS+METHODS
 		#s = 1
 		Socks5_Client.hallo_send(VER,NMETHODS,METHODS)		
 		
-		# Step 2: Receive answer "Hallo" from Proxy Server - VER+METHOD
+		# Step 2: Receive answer "Hallo" from Proxy Server
+		# VER+METHOD
 		#s = 2
 		Socks5_Client.hallo_recv()
 		
 		print("[*] *** Connecting ***")	
-		# Step 3: Send request details - VER+CMD+RSV+ATYP+DST.ADDR+DST.PORT
+		# Step 3: Send request details
+		# VER+CMD+RSV+ATYP+DST.ADDR+DST.PORT
 		#s = 3
-		# TODO: Depending of atyp, generating of valid (DST_ADDR,DST_PORT) format
+		# TODO: Depending of atyp, generating of valid (DST_ADDR,DST_PORT)
+		# format
 		DST_ADDR			= socket.inet_aton(target_host)
 		DST_PORT			= str(target_port).encode()				# TODO: Bug for target_port: byte <-> string <-> int switching!!!!
 		Socks5_Client.connect_send(VER,CMD,RSV,ATYP,DST_ADDR,DST_PORT)
 				
-		# Step 4: Receive request details from proxy - VER+REP+RSV+ATYP+DST.ADDR+DST.PORT
+		# Step 4: Receive request details from proxy
+		# VER+REP+RSV+ATYP+DST.ADDR+DST.PORT
 		#s = 4
 		Socks5_Client.connect_recv()
 		print("[*] *** Connecting: Finished ***")
@@ -129,7 +136,8 @@ if __name__=='__main__':
 		print("[*] Application Exiting ...")
 		sys.exit()	# Error number?
 	except Exception as e:
-		# TODO: Something wrong with exeption/error/sys.error handling. This message shut not appear after shutting down of client
+		# TODO: Something wrong with exeption/error/sys.error handling.
+		# This message shut not appear after shutting down of client
 		print("[*] An Unexpected Error occured.")
 		sys.exit(2)	# Error number?
 

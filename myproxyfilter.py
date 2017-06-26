@@ -12,7 +12,8 @@
 ***
 GENDER SWITCHING
 ***
-Switching pronouns in a plaintext message of one gender, to the pronouns of the other gender.
+Switching pronouns in a plaintext message of one gender, to the pronouns of the 
+other gender.
 
 ---
 The problems of gender switching
@@ -21,7 +22,8 @@ Assumptions:
 1. The message is in English => English pronouns
 	This are: he, she, him, her, his, hers (6 single pronouns)
 2. We can have two possible cases:
-	=> A random pattern (or something written by a person with terrible writing skills ;)
+	=> A random pattern (or something written by a person with terrible writing 
+	skills ;)
 	=> A natural language text with established English grammar
 
 3. We have the following possible pronoun pairs:
@@ -44,7 +46,8 @@ Assumptions:
 	tell me which kind of word it is (SUB=subject, OBJ=object, etc., ...)
 	
 	=> Solution is only so good like the natural language parser!
-	=> I found this wrapper parser: https://github.com/EducationalTestingService/python-zpar				
+	=> I found this wrapper parser: 
+	https://github.com/EducationalTestingService/python-zpar				
 """
 
 import string
@@ -68,7 +71,9 @@ class gender_filter():
 
 	# Switch one pronoun pair 
 	def switch_one_pronoun_pair(self,pn1,pn2,msg):
-		tmp = "6m7Q6q16"							# Placeholder should be no "real" word, something with lim -> 0 probability to appear in msg
+		# Placeholder should be no "real" word
+		# Something with lim -> 0 probability to appear in msg
+		tmp = "6m7Q6q16"
 
 		msg1 	= msg.replace(pn1,tmp)
 		msg2 	= msg1.replace(pn2,pn1)
@@ -102,13 +107,19 @@ class gender_filter():
 	#	Step2:	Switch him <=> her
 	#	Step3:	Switch his <=> her
 	#	Step4:	Switch his <=> hers
-	# Comment: The pronoun parsing only works correct for an msg which follows the established rules of English grammar. Absolutely not, for a random pattern text
-	# Comment: The input msg variable should contain the full message, at one. If we do parsing for each single data of buffer_size, parsing will not work if
-	# 	a pronoun is splited between two buffer packages. E.g.: package1|package2 = msg = "He and sh"|"e are good friends."
+	# Comment: The pronoun parsing only works correct for an msg which follows 
+	# the established rules of English grammar. Absolutely not, for a random 
+	# pattern text
+	# Comment: The input msg variable should contain the full message, at one. 
+	# If we do parsing for each single data of buffer_size, parsing will not 
+	# work if a pronoun is splited between two buffer packages. 
+	# E.g.: package1|package2 = msg = "He and sh"|"e are good friends."
 	# => Has to be fixed.
-	# TODO: Result would be better, if we do switching not chronologically (step1, step2, step3, step4). Instead we should have an additional look at probability
-	#	tables for the probability of the appereance of a single pronoun in an English text. Then do the switching of the not-injective pronoun pairs under
-	#	consideration of this probabilities.
+	# TODO: Result would be better, if we do switching not chronologically 
+	# (step1, step2, step3, step4). Instead we should have an additional look at
+	# probability tables for the probability of the appereance of a single 
+	# pronoun in an English text. Then do the switching of the not-injective 
+	# pronoun pairs under consideration of this probabilities.
 	def simple_switch(self,msg):
 		
 		_msg_new = " "
@@ -121,18 +132,25 @@ class gender_filter():
 		# Find and replace for different pronoun pairs
 		# Find and replace for different notations: he, He, HE ...
 		# Find and replace for different positions within a sentence
+		
 		#pronoun_pairs = {"he" : "she", "him":"her", "his":"her", "his":"hers"}
-		pronoun_pairs = {"he" : "she", "him":"her", "his":"hers", "his":"her"} # Switching of Step3 with Step4
+		
+		# Switching of Step3 with Step4
+		pronoun_pairs = {"he" : "she", "him":"her", "his":"hers", "his":"her"}
 		
 		# Example of the different results
-		# Old: He, and SHE likes me so much. HELP him! His dog likes tea and eats with him cake. That's hers.
-		# New: She, and HE likes me so much. HELP her! Hers dog likes tea and eats with her cake. That's his.
+		# Old: He, and SHE likes me so much. HELP him! 
+		# 	His dog likes tea and eats with him cake. That's hers.
+		# New: She, and HE likes me so much. HELP her! 
+		# 	Hers dog likes tea and eats with her cake. That's his.
 
-		# Old: He, and SHE likes me so much. HELP him! His dog likes tea and eats with him cake. That's hers.
-		# New: She, and HE likes me so much. HELP his! Her dog likes tea and eats with his cake. That's hers.
+		# Old: He, and SHE likes me so much. HELP him! 
+		# 	His dog likes tea and eats with him cake. That's hers.
+		# New: She, and HE likes me so much. HELP his! 
+		# 	Her dog likes tea and eats with his cake. That's hers.
 
-        # TODO  If we have very long messages, we should add 'if cases' within the
-        # loop, to not always run all 'find and replace' functions for each
+        # TODO  If we have very long messages, we should add 'if cases' within 
+		# the loop, to not always run all 'find and replace' functions for each
         # pronoun pair. E.g. 'he' or 'she' aren't at the end of a senctence, if
         # the sentence follows english grammar rules, or? -> Saving of
         # computation time
@@ -167,9 +185,12 @@ class gender_filter():
 	"""	
 	# TODO: Not implemented until now
 	# Idea: 
-	# - Send msg to natural language parser to determine the kind of word (subject, object, ...).
-	# - Search for all her and his and their result of the natural language parsing
-	# - Use this information to decide if we have: her => him or her => his, his => her or his => hers
+	# - Send msg to natural language parser to determine the kind of word 
+	# 	(subject, object, ...).
+	# - Search for all her and his and their result of the natural language 
+	# 	parsing
+	# - Use this information to decide if we have: her => him or her => his, 
+	#	his => her or his => hers
 	# - Change pronouns under consideration of this additional information
 	def lingu_switch(self,msg):
 		_msg_new = " "
