@@ -80,9 +80,11 @@ class gender_filter():
 	def switch_one_pronoun_pair_allpos(self,pn1,pn2,msg):
 		myfilter = gender_filter()
 		_msg_new = msg
+
 		# Beginning and Middle
 		_msg_new = myfilter.switch_one_pronoun_pair(" " + str(pn1) + " ", " " + str(pn2) + " ",_msg_new)
 		_msg_new = myfilter.switch_one_pronoun_pair(" " + str(pn1) + ", ", " " + str(pn2) + ", ",_msg_new)
+		_msg_new = myfilter.switch_one_pronoun_pair(" " + str(pn1) + "'s ", " " + str(pn2) + "'s ",_msg_new)
 		
 		# End
 		_msg_new = myfilter.switch_one_pronoun_pair(" " + str(pn1) + ".", " " + str(pn2) + ".",_msg_new)
@@ -180,7 +182,7 @@ class gender_filter():
 def test():
 	# Test messages
 	#msg = "She, you and me. Sheer is funny! He is it, too."
-	msg = "He, and SHE likes me so much. HELP him! His dog likes tea and eats with him cake. That's hers."
+	msg = "He, and SHE likes me so much. HELP him! His dog likes tea and eats with him cake. That's hers. He's great."
 	print("Old: " + msg)
 	
 	myfilter = gender_filter()
